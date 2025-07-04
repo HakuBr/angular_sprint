@@ -1,47 +1,30 @@
 <section>
     <div>
         <h2>Veiculos</h2>
-        <select>
-            <option value="">Territory</option>
-            <option value="">Mustang</option>
-            <option value="">Bronco</option>
-            <option value="">Ranger</option>
+        <select (change)="onSelect($event)">
+            @for(v of veiculos; track v.id){
+                <option value="{{ v.id }}"> {{ v.vehicle }}</option>
+            }
         </select>
     </div>
     
-    <app-card/>
-    <app-card/>
-    <app-card/>
+    <app-card [titulo]="'Total de Vendas'" [valor]="veiculoSelecionado.volumeTotal"/>
+    <app-card [titulo]="'Conectados'" [valor]="veiculoSelecionado.connected"/>
+    <app-card [titulo]="'Upd. Software'" [valor]="veiculoSelecionado.softwareUpdates"/>
     
 </section>
 <section>
-    <img src="http://localhost:3001/mustang.png" alt="">
+    <img src="{{ veiculoSelecionado.img }}" alt="">
 </section>
 <section>
-    <table>
-        <thead>
-            <tr>
-                <th>VN</th>
-                <th>ODOMETRO</th>
-                <th>NÍVEL DO COMBUSTÍVEL</th>
-                <th>STATUS</th>
-                <th>LAT</th>
-                <th>LON</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input type="text">
-                </td>
-                <td>VIN</td>
-                <td>exemplo</td>
-                <td>exemplo</td>
-                <td>exemplo</td>
-                <td>exemplo</td>
-                <td>exemplo</td>
-            </tr>
-        </tbody>
-    </table>
+    <app-car-table 
+        [vin] = "veiculoSelecionado.vin" 
+        [lat]="vinInfos.lat"
+        [long] ="vinInfos.long"
+        [nivelCombustivel]="vinInfos.nivelCombustivel"
+        [odometro]="vinInfos.odometro"
+        [status]="vinInfos.status"
+
+        />
 </section>
 
